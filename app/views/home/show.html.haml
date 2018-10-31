@@ -1,0 +1,15 @@
+%table
+  %tbody
+    - @products.each do |product|
+      .display
+        Product Name:
+        = product.product_name
+        %br/
+        Details:
+        = product.about
+        %br/
+        Price:
+        = product.price
+        %br/
+        - if user_signed_in?
+          = link_to 'Add to Cart', new_customer_cart_path(current_user.customer)

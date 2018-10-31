@@ -1,0 +1,16 @@
+= form_with(model: @seller, local: true) do |form|
+  = render 'shared/error', object: @seller
+  %p 
+    Name:
+    %br/
+    = form.text_field :sname
+  %p 
+    Website:
+    %br/
+    = form.text_field :website
+  %p 
+    About me:
+    %br/
+    = form.text_field :description
+  .actions
+    = form.submit "save"

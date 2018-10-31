@@ -1,0 +1,9 @@
+%h3 Welcome!!
+- unless current_user.customer 
+  = link_to 'Create my profile', new_customer_path
+- else
+  = link_to 'Edit My Profile', edit_customer_path(current_user)
+  |
+  = link_to 'My Profile', customer_path(current_user)
+%p
+  =link_to 'Back to Cart', home_index_path

@@ -1,0 +1,40 @@
+= form_with(model: customer, local: true) do |form|
+  = render 'shared/error', object: @customer
+  %table
+    %tr
+      %td
+        First Name:
+      %td
+        = form.text_field :first_name
+    %tr
+      %td
+        Last Name:
+      %td
+        = form.text_field :last_name
+    %tr
+      %td
+        Gender:
+      %td 
+        = form.radio_button(:gender, "male")
+        = form.label(:gender_male, "Male")
+        = form.radio_button(:gender, "female")
+        = form.label(:gender_female, "Female")
+    %tr
+      %td
+        Date of Birth:
+      %td
+        = form.date_select(:DOB, start_year:1950)
+    %tr
+      %td
+        Phone:
+      %td
+        = form.text_field :phone
+    %tr
+      %td  
+        City:
+      %td
+        = form.text_field :city
+    %tr
+      %td
+        .actions
+          = form.submit "save"

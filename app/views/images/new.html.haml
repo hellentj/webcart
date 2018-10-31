@@ -1,0 +1,18 @@
+= form_with(model: @image, local: true) do |form|
+  = render 'shared/error', object: @image
+  %table
+    %tr
+      %td
+        Color:
+      %td
+        = form.select(:colour_id, options_for_select([['White', 1], ['Black', 2],['Red', 3],['Green', 4],['pink', 5],['Blue', 6],['Yellow', 7]]))
+    %tr
+      %td
+        Select image file
+      %td
+        = form.file_field :image
+    %tr
+      %td
+        = form.submit :Save
+
+    

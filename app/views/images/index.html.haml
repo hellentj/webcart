@@ -1,0 +1,10 @@
+%table
+  %thead
+    %tr
+      %th image
+      %th{:colspan => "3"}
+  %tbody
+    - @images.each do |form|
+      %tr
+        %td
+          = image_tag "#{form.image.url}"          

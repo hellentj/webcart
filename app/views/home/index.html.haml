@@ -1,0 +1,26 @@
+%h3 Home
+%p
+  - if user_signed_in?
+    = link_to 'My Profile', customers_path
+    
+= form_with url: home_index_path, method: :get do 
+  = select_tag(:category, options_for_select([['Men', 1], ['Women', 2],['Kids', 3],['Home & Living', 4]]))
+  = submit_tag :search
+%br/
+
+%table
+  %tbody
+    - @products.each do |product|
+      .display
+        Product Name:
+        = product.product_name
+        %br/
+        Details:
+        = product.about
+        %br/
+        Price:
+        = product.price
+        %br/
+        - if user_signed_in?
+          - if current_user.customer?
+            = link_to 'Add to Cart', new_customer_cart_path(current_user.customer, :product => product.attributes )
