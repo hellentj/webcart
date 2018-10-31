@@ -1,15 +1,27 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_image, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  add_breadcrumb "Home", :sellers_path, only: [:new, :index]
 
   def index
-    @images = Image.all
+    @product = Product.find(params[:product])
+    @images = @product.images
+    add_breadcrumb @product.product_name, seller_product_path(current_user.seller, @product)
+    add_breadcrumb "Images", images_path
   end
 
-  def show      
-  end
+ 
 
   def new
-    @image = Image.new
+    @product = Product.find(params[:product])
+    unless @product.quantities.blank?
+      @image = Image.new
+    else
+      flash[:error] = "You should add quantity"
+      redirect_to  new_quantity_path(product: @product)
+    end
+    add_breadcrumb @product.product_name, seller_product_path(current_user.seller, @product)
+    add_breadcrumb "New Image", new_image_path
   end
 
   def edit
@@ -19,38 +31,41 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
     if @image.save
-      flash[:notice] = 'Image successfully added.'
-      redirect_to @image
+      flash[:success] = 'Image successfully added.'
+      redirect_to seller_product_path(current_user.seller, @image.product)
     else
-      flash[:notice] = 'Try again!!!'
+      flash[:error] = 'Something went wrong!! Please Try again!!!'
+      @product = @image.product
       render 'new'
     end
   end
 
   def update
     if @image.update(image_params)
-      flash[:notice] = 'successfully updated.'
+      flash[:notice] = 'Image successfully updated.'
       redirect_to @image
     else
-      flash[:notice] = 'Try again!!!'
-      redirect_to new_image_path
-    end  
+      flash[:error] = 'Something went wrong!! Please Try again!!!'
+      render 'edit'
+    end
   end
 
   def destroy
+    product = @image.product
     if @image.destroy
-      flash[:notice] = 'Image deleted'
+      flash[:error] = 'Image deleted'
     else
-      flash[:notice] = 'Not removed!!! Try Again'
-    end         
+      flash[:error] = 'Not removed!!! Try Again'
+    end
+    redirect_to seller_product_path(current_user.seller, product)
   end
 
-  private   
+  private
     def set_image
-      @image = Image.find(params[:id]) 
+      @image = Image.find(params[:id])
     end
     
     def image_params
-      params.require(:image).permit(:colour_id, :image)
+      params.require(:image).permit(:product_id, :colour_id, :image)
     end
 end

@@ -1,16 +1,25 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  def index
-    @products = Product.where(seller_id: current_user.seller)
-  end
+  add_breadcrumb "Home", :sellers_path
 
-  def show    
+  def index
+    add_breadcrumb "Products", seller_products_path(current_user.seller)
+    @seller = current_user.seller
+    @products = @seller.products.paginate(page: params[:page], per_page: 20)
   end
 
   def new
-    @categories = Category.all
+    add_breadcrumb "New Product", new_seller_product_path(current_user.seller)
     @product = Product.new
+    @categories = Category.all
+    @sizes = Size.all
+  end
+
+  def show 
+    @product = Product.find(params[:id])
+    @images = @product.images
+    add_breadcrumb @product.product_name, seller_product_path(current_user.seller)
   end
 
   def edit
@@ -20,10 +29,11 @@ class ProductsController < ApplicationController
     seller = current_user.seller
     @product = seller.products.new(product_params)
     if @product.save
-      flash[:notice] = 'Product successfully added.'
-      redirect_to seller_products_path
+      flash[:success] = 'Product successfully added.'
+      redirect_to new_quantity_path(product: @product)
     else
-      flash[:notice] = 'Try again!!!'
+      flash[:error] = 'Something went wrong!! Please Try again!!!'
+      @categories = Category.all
       render 'new'
     end
   end
@@ -31,14 +41,13 @@ class ProductsController < ApplicationController
   def update
   end
 
-  def destroy    
+  def destroy
     if @product.destroy
-      flash[:notice] = 'Product successfully removed.'
-      redirect_to seller_products_path
+      flash[:error] = 'Product successfully removed.'
     else
-      flash[:notice] = 'Product not removed!!! Try Again'
-      redirect_to seller_products_path 
+      flash[:error] = 'Product not removed!!! Try Again'
     end
+    redirect_to seller_products_path
   end
 
   private

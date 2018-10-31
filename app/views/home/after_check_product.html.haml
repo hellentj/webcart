@@ -1,0 +1,39 @@
+.container
+  %table.table.table-hover
+    %tr
+      %td
+        %strong ProductName:
+      %td
+        = @product.product_name
+    %tr
+      %td
+        %strong Category:
+      %td
+        = @product.category.category_name
+    %tr
+      %td
+        %strong Price:
+      %td
+        = @product.price
+    %tr
+      %td
+        %strong Available Quantity:
+      %td
+        = @quantity.quantity
+    %tr
+      %td
+        #{@product.product_name} will be delivered within 
+        =from_time = DateTime.now.to_date + 5.days
+
+    - @images.each do |form|
+      = link_to (form.image.thumb.url), data: { lightbox: 'roadtrip', title: 'Product Image'}  do
+        = image_tag (form.image.thumb.url), alt: 'logo', class: :pictur
+    - if user_signed_in?
+      - if current_user.customer
+        .text-right
+          .btn.btn-ash
+            = link_to 'Add to Cart',   customer_carts_path(current_user.customer, product_id: @product.id, quantity: @quantity), method: :post
+    - else
+      .text-right
+        .btn.btn-ash
+          = link_to 'Add to Cart',new_user_session_path, flash_notice: "please sign in to continue"

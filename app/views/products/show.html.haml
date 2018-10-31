@@ -1,0 +1,50 @@
+.container
+  %table.table.table-hover
+    %tr
+      %td
+        %strong ProductName:
+      %td
+      %td
+        = @product.product_name
+    %tr
+      %td
+        %strong Category:
+      %td
+      %td
+        = @product.category.category_name
+    %tr
+      %td
+        %strong Price:
+      %td
+      %td
+        = @product.price
+    %tr
+      %td
+        %strong Colours:
+      %td
+      %td
+        - @product.colours.distinct.each do |colour|
+          = colour.colour
+          %br/
+    %tr
+      %td
+        %strong Sizes:
+      %td
+      %td
+        - @product.sizes.distinct.each do |size|
+          = size.size
+          %br/
+    %tr
+      %th
+      %th= link_to 'View Quantity',quantities_path(product: @product)
+      %th= link_to 'Add colour and size',new_quantity_path(product: @product) 
+      %th= link_to image_tag("addimg.jpeg", size:"40x40"), new_image_path(product: @product)
+      %th= link_to image_tag("img.png", size:"40x40"), images_path(product: @product)
+      - @images.each do |form|
+        %tr
+          %td
+            = form.colour.colour
+          %td
+          %td
+            = image_tag (form.image.thumb.url), class: :picture
+          %td

@@ -1,9 +1,18 @@
-%table
-  %thead
-    %tr
-      %th Category Name
-  %tbody
-    - @categories.each do |category|
+.container
+  %table.table.table-hover
+    %thead
       %tr
-        %td= category.category_name
-        %td= link_to 'Destroy', category_path(category), method: :delete,data: { confirm: 'Are you sure?' }
+        %th Category Name
+        %th Actions
+        %th
+    %tbody
+      - @categories.each do |category|
+        %tr
+          %td= category.category_name
+          %td= link_to 'Edit', edit_category_path(category)
+          %td= link_to image_tag("delete.png", size:"25x25"), category_path(category), method: :delete,data: { confirm: 'Are you sure?' }
+  .text-right
+    %h4
+      = link_to image_tag("add.png", size:"40x40"), new_category_path
+  %h4
+    = link_to image_tag("back.jpeg", size:"40x40"), admins_path

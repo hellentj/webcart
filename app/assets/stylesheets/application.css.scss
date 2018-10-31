@@ -1,0 +1,178 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "lightbox";
+
+div.display {
+  margin:15px; 
+  border:none;
+  float:left;
+  width: 200px;
+}
+
+div.border {
+  display: inline-block;
+  width: 200px;
+  height: 250px;
+  margin: 10px;
+}
+
+div.display:hover {
+  border: 2px solid white;
+}
+
+.picture:hover {
+ transform: scale(1.05);
+}
+
+.picture {
+  height: 200px;
+  width: 150px;
+}
+.details {
+  height: 25px;
+  width: 25px;
+}
+.pictur {
+  height: 250px;
+  width: 175px;
+  border:1px solid white;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+.pictur:hover {
+ transform: scale(1.01);
+ border:1px solid #e82764;
+}
+
+body{
+  background-color: #f9f9f9;
+  colour:black;
+}
+
+html, body { height: 100%; margin: 0; }
+.container {
+  min-height: 200%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto [footer-height];
+}
+
+.bottom{
+  width: 100%;
+  padding-top:50px;  
+  padding-bottom: 100px;
+}
+
+.breadcrumbs a {
+  color: #e82764;
+  font-size: 1em;
+}
+
+.breadcrumbs {
+  color: #d899ad;
+  font-size: 1em;
+}
+
+li {
+  list-style-type: none;
+}
+
+div.address_border {
+  margin:15px; 
+  border:2px solid white;
+  float:left;
+  width: 250px;
+  background-color: #fcf0ef;
+}
+
+div.admin_border {
+  margin: 15px; 
+  border: 2px solid white;
+  float:left;
+  width: 250px;
+  background-color: white;
+}
+
+.container-header{
+    line-height: 1.22;
+}
+
+#social_icons {
+    padding: .5em;
+    display: inline-block;
+}
+
+.topmenu li {
+     display:inline-block;
+     font-size: 1.5em;
+     text-align: right;
+}
+
+.topmenu.omega{
+    padding-top:10px; 
+    float:right;
+}
+
+ul{
+     margin: 0;
+}
+
+a:hover {
+  color: Black;
+  font-weight: 900;
+}
+
+.font_color {
+  color: #e82764;
+}
+
+.seller_req {
+  padding-top:100px;  
+  padding-bottom: 500px;
+}
+
+div.order_border {
+  margin:15px; 
+  border:2px solid black;
+  float:left;
+  width: 350px;
+}
+
+#mybutton {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+}
+
+#leftbutton {
+  position: fixed;
+  bottom: 100px;
+  left: 100px;
+}
+
+#topbutton {
+  position: fixed;
+  top: 100px;
+  right: 10px;
+}
+.fixed-bottom_button {
+  position: fixed;
+  bottom: 100px;
+}

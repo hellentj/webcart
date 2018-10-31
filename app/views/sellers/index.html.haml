@@ -1,0 +1,30 @@
+.container
+  %table.table.table-hover
+    - if @products.blank?
+      %h3.text-secondary
+        No Products Added.
+    - else
+      %tbody
+        - @products.each do |product|
+          - product.images.limit(1).each do |form|
+            .display.border.border-black
+              .text-center
+                = link_to seller_product_path(current_user.seller, product) do 
+                  = image_tag (form.image.thumb.url), class: :picture
+                %br/
+                = truncate(product.product_name, length: 20)
+                %br/
+                .font_color
+                  Available:
+                  = product.quantity
+                  &nbsp
+                  Sold:
+                  = product.sold
+  #topbutton.font_color
+    = link_to 'Products', seller_products_path(current_user.seller)
+    .span.badge.badge-primary
+      = @total
+    Pending
+    .span.badge.badge-primary
+      = @pending
+  = will_paginate @products, class: :flickr_pagination

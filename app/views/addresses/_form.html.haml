@@ -1,0 +1,40 @@
+= form_with(model: address, local: true) do |form|
+  = render 'shared/error', object: @address
+  %table.table.table-hover
+    %tr
+      %td
+        House name/ House number:
+      %td
+        = form.text_field :address, class: :'form-control'
+    %tr
+      %td
+        City:
+      %td
+        = form.text_field :city, class: :'form-control'
+    %tr
+      %td
+        District:
+      %td 
+        = form.text_field :district, class: :'form-control'
+    %tr
+      %td
+        State:
+      %td
+        = form.text_field :state, class: :'form-control'
+    %tr
+      %td
+        Country:
+      %td
+        = form.text_field :country, class: :'form-control'
+    %tr
+      %td  
+        Pincode:
+      %td
+        = form.text_field :pincode, class: :'form-control'
+    %tr
+      %td
+        = form.hidden_field :path, value: @path
+    %tr
+      %td
+        .actions
+          = form.submit "save"

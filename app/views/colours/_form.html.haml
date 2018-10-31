@@ -1,0 +1,12 @@
+= form_with(model: colour, local: true) do |form|
+  = render 'shared/error', object: @colour
+  %table.table.table-hover
+    %tr
+      %td
+        Colour:
+      %td
+        = form.text_field :colour
+    %tr
+      %td
+        = form.submit :save 
+

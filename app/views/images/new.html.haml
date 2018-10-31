@@ -1,18 +1,24 @@
-= form_with(model: @image, local: true) do |form|
-  = render 'shared/error', object: @image
-  %table
-    %tr
-      %td
-        Color:
-      %td
-        = form.select(:colour_id, options_for_select([['White', 1], ['Black', 2],['Red', 3],['Green', 4],['pink', 5],['Blue', 6],['Yellow', 7]]))
-    %tr
-      %td
-        Select image file
-      %td
-        = form.file_field :image
-    %tr
-      %td
-        = form.submit :Save
-
-    
+.container
+  = form_with(model: @image, local: true) do |form|
+    = render 'shared/error', object: @image
+    %table.table.table-hover
+      %tr
+        %td
+          Color:
+        %td
+          = form.select(:colour_id, colour_list)
+      %tr
+        %td
+          Select image file
+        %td
+          = form.file_field :image
+        %td
+          = form.hidden_field :product_id, value: @product.id
+      %tr
+        %td
+          = form.submit :Save
+  %h4
+    = link_to 'Back to products', seller_products_path(current_user.seller)
+  .text-right
+    %h4
+      = link_to 'skip',  seller_product_path(current_user.seller, @product)

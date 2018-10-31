@@ -1,0 +1,57 @@
+.container
+  %table.table
+    %thead
+      %tr
+        %th
+          Product
+        %th
+          Price
+        %th
+          Quantity
+        %th
+          size
+        %th
+          colour
+        %th
+          Quantity
+        %th
+          Action
+   
+    %tbody
+      - @carts.each do |cart|
+        %tr
+          %td
+            = cart.product.product_name
+          %td
+            ₹
+            = cart.product.price
+          %td
+            = cart.total_quantity
+          %td
+            = cart.quantity.size.size
+          %td
+            = cart.quantity.colour.colour
+
+          - if cart.product.seller.user.unblock?
+            %td            
+              - if cart.quantity.quantity > 0
+                = link_to image_tag("plus.jpeg", size:"25x25"), customer_cart_path(current_user.customer, cart, item: "add"), method: :put
+
+              - if cart.total_quantity > 1
+                = link_to image_tag("minus.jpeg", size:"25x25"), customer_cart_path(current_user.customer, cart, item: "reduce"), method: :put
+          - else
+            %td
+              You can not proceed with this product, Please remove or it will be removed when proceeding with checkout
+            %td
+          %td
+            .btn.btn-danger
+              = link_to 'Remove', cart, method: :delete, data: { confirm: 'Are you sure?' }
+            - @price += (cart.product.price.to_d * cart.total_quantity.to_d)
+      %tr
+        %th
+          Grand Total:  &nbsp &nbsp ₹
+          = @price
+  .btn.btn-ash#mybutton
+    = link_to 'Proceed to Checkout', address_path(current_user.customer)
+  .btn.btn-ash#leftbutton
+    = link_to 'Back to Shopping',root_path

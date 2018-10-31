@@ -1,15 +1,42 @@
-%table
-  %tbody
-    - @products.each do |product|
-      .display
-        Product Name:
-        = product.product_name
-        %br/
-        Details:
-        = product.about
-        %br/
-        Price:
-        = product.price
-        %br/
-        - if user_signed_in?
-          = link_to 'Add to Cart', new_customer_cart_path(current_user.customer)
+.container
+  = form_with(url: check_product_home_path, method: :get, local: true) do |form|
+    %table.table.table-hover
+      %tr
+        %td
+          %strong ProductName:
+        %td
+          = @product.product_name
+      %tr
+        %td
+          %strong Category:
+        %td
+          = @product.category.category_name
+      %tr
+        %td
+          %strong Price:
+        %td
+          = @product.price
+      - @images.limit(4).each do |form|
+        = link_to (form.image.thumb.url), data: { lightbox: 'roadtrip', title: @product.product_name}  do
+          = image_tag (form.image.thumb.url), class: "pictur #{form.colour.id}"
+      %tr
+        %td
+          Colour:
+        %td
+          = form.select :colour_id, @colours.collect {|p| [ p.colour, p.id ] }
+      %tr
+        %td
+          Size:
+        %td
+          - if @sizes.size == 1 && @sizes.first.size == ""
+            = "-"
+            = form.hidden_field :size_id, value: 1
+          - else
+            = form.select(:size_id, @sizes.collect {|p| [ p.size, p.id ] })          
+      %tr
+        %td
+          = form.hidden_field :product_id, value: @product.id
+    #mybutton
+      = form.submit "Search", class: "btn btn-ash"
+  %h5
+    =link_to 'Back',root_path

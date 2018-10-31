@@ -1,34 +1,35 @@
-%table
-  %tr
-    %td
-      %strong First Name:
-    %td
-      = @customer.first_name
-  %tr
-    %td
-      %strong Last Name:
-    %td
-      = @customer.last_name
-  %tr
-    %td
-      %strong Gender:
-    %td
-      = @customer.gender
-  %tr
-    %td
-      %strong Date of Birth:
-    %td
-      = @customer.DOB
-  %tr
-    %td
-      %strong Phone:
-    %td
-      = @customer.phone
-  %tr
-    %td
-      %strong City:
-    %td
-      = @customer.city
+.container
+  %table.table.table-hover
+    %tr
+      %td
+        %strong First Name:
+      %td
+        = @customer.first_name
+    %tr
+      %td
+        %strong Last Name:
+      %td
+        = @customer.last_name
+    %tr
+      %td
+        %strong Gender:
+      %td
+        = @customer.gender
+    %tr
+      %td
+        %strong Date of Birth:
+      %td
+        = @customer.DOB
+    %tr
+      %td
+        %strong Phone:
+      %td
+        = @customer.phone
+    %tr
+      %td
+        %strong City:
+      %td
+        = @customer.city
+  - unless current_user.admin?
+    = link_to image_tag("edit.png", size:"40x40"), edit_customer_path(@customer)
 
-= link_to 'Edit', edit_customer_path(@customer)
-= link_to 'Back', customers_path

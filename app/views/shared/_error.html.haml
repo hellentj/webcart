@@ -1,0 +1,7 @@
+#error_explanation
+  .container
+    .field_with_errors
+      - if object.errors.any?
+        - for message_error in object.errors.full_messages
+          %li
+            #{message_error}

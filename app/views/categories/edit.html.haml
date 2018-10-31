@@ -1,0 +1,14 @@
+.container
+  %table.table.table-hover
+    = form_with model: @category, local: true do |form|
+      = render 'shared/error', object: @category
+      For new Category:
+      %tr
+        %td 
+          Category Name:
+        %td
+          = form.text_field :category_name
+      %tr
+        %td
+          = form.submit :Save
+  = link_to 'Back', categories_path

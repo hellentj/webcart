@@ -1,27 +1,28 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  add_breadcrumb "Home", :admins_path
+  add_breadcrumb "Categories", :categories_path
+
   def index
     @categories = Category.all
   end
 
-  def show
-  end
-
   def new
+    add_breadcrumb "New Category", new_category_path
     @category = Category.new
   end
 
   def edit
+    add_breadcrumb "Edit Category", edit_category_path
   end
-
 
   def create
     @category = Category.new(category_params)
     if @category.save
-      flash[:notice] = 'Category successfully created.'
-      redirect_to @category
+      flash[:success] = 'Category successfully created.'
+      redirect_to categories_path
     else
-      flash[:notice] = 'Try again!!'
+      flash[:error] = 'Please Try again !!'
       render 'new'
     end
   end
@@ -29,18 +30,20 @@ class CategoriesController < ApplicationController
   def update
     if @category.update(category_params)
       flash[:notice] = 'Category successfully Updated.'
-      redirect_to @category
+      redirect_to categories_path
     else
-      flash[:notice] = 'Try again!!!'
+      flash[:error] = 'Category not updated!!! Please Try again!!!'
+      render 'edit'
     end
   end
 
   def destroy
     if @category.destroy
-      flash[:notice] = 'Category successfully removed.'
+      flash[:error] = 'Category successfully removed.'
     else
-      flash[:notice] = 'Category not removed!!! Try Again'
+      flash[:error] = 'Category not removed!!! Try Again'
     end
+    redirect_to categories_path
   end
 
   private

@@ -1,0 +1,21 @@
+.container
+  %table.table.table-hover
+    %tr   
+      %td
+        %strong Name:
+      %td
+        = @seller.sname
+    %tr   
+      %td
+        %strong Website:
+      %td
+        = @seller.website
+    %tr   
+      %td
+        %strong About:
+      %td
+        = @seller.description
+  - unless current_user.admin?
+    .pull-right
+      = link_to image_tag("edit.png", size:"40x40"), edit_seller_path(current_user)
+    = link_to image_tag("back.jpeg", size:"40x40"), sellers_path

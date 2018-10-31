@@ -1,25 +1,30 @@
-= form_with(model: @product, url:seller_products_path, local: true) do |form|
-  = render 'shared/error', object: @product
-  %p 
-    Product Name:
-    %br/
-    = form.text_field :product_name
-  %p 
-    Description:
-    %br/
-    = form.text_field :about
-  %p 
-    Price:
-    %br/
-    = form.text_field :price
-  %p 
-    Quantity:
-    %br/
-    = form.text_field :quantity
-  %p
-    Category:
-    %br/
-    = form.select(:category_id, @categories.collect {|p| [ p.category_name, p.id ] }, {prompt: 'Select Category for products'})
-  %p
-    = form.submit :Save
-= link_to 'View Products', seller_products_path
+.container
+  %h4 Add Products
+  = form_with(model: @product, url:seller_products_path, local: true) do |form|
+    = render 'shared/error', object: @product
+    %table.table
+      %tr
+        %td 
+          Product Name:
+        %td
+          = form.text_field :product_name, class: :'form-control', required: true
+      %tr
+        %td 
+          Description:
+        %td
+          = form.text_field :about, class: :'form-control', required: true
+      %tr
+        %td
+          Price:
+        %td
+          = form.text_field :price, class: :'form-control', required: true
+      %tr
+        %td
+          Category:
+        %td
+          = form.select(:category_id, category_list)
+      %tr
+        %td
+          .actions
+            = form.submit :Save
+  = link_to 'View Products', seller_products_path

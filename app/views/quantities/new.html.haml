@@ -1,0 +1,31 @@
+.container
+  %h4 Add Quantity for the product
+  %h5
+    = @product.product_name
+  = form_with(model: @quantity, local: true) do |form|
+    = render 'shared/error', object: @quantity
+    %table.table.table-hover
+      %tr
+        %td
+          Size:
+        %td
+          = form.select(:size_id, size_list)
+      %tr
+        %td
+          Colour:
+        %td
+          = form.select(:colour_id, colour_list)
+      %tr
+        %td
+          Quantity
+        %td
+          = form.number_field :quantity
+        %td
+          = form.hidden_field :product_id, value: @product.id
+      %tr
+        %td
+          = form.submit :Save
+  = link_to 'Back',  seller_product_path(current_user.seller, @product)
+  .text-right
+    %h4
+      = link_to 'skip',  seller_product_path(current_user.seller, @product)

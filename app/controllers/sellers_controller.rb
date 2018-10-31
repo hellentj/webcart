@@ -1,17 +1,35 @@
 class SellersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_seller, only: [:show, :edit, :update, :destroy]
-  
-  def index    
-    unless current_user.seller   
+  add_breadcrumb "Home", :sellers_path, only: [:index, :new, :edit]
+
+  def index
+    unless current_user.seller
       redirect_to new_seller_path
     else
-      @sellers = Seller.all 
+      seller = current_user.seller
+      @products = seller.products.paginate(page: params[:page], per_page: 20)
+      @total = @products.count
+      @pending = 0
+      seller.products.each do |product|
+        if product.quantity == 0
+          @pending +=1
+        end
+      end
     end
   end
 
-  def show    
-    @seller = current_user.seller
+  def show
+    if current_user.admin?
+      add_breadcrumb "Home", admins_path
+      add_breadcrumb "Profile"
+      @seller = Seller.find(params[:id])
+    else
+      add_breadcrumb "Home", sellers_path
+      add_breadcrumb "Profile", seller_path(current_user.seller)
+      @seller = Seller.find(params[:id])
+      authorize @seller
+    end
   end
 
   def new
@@ -19,31 +37,38 @@ class SellersController < ApplicationController
   end
 
   def edit
+    unless current_user.seller
+      redirect_to new_seller_path
+    end
   end
 
   def create
     @seller = current_user.create_seller(seller_params)
     if @seller.save
-      flash[:notice] = 'Profile successfully added.'
-      redirect_to @seller
+      flash[:success] = 'Profile successfully added.'
+      redirect_to seller_path(@seller)
     else
-      flash[:notice] = 'Try again!!!'
+      flash[:error] = 'Something went wrong!! Please Try again!!!'
       render 'new'
     end
   end
 
-  def update    
+  def update
     if @seller.update(seller_params)
-      flash[:notice] = 'Profile successfully added.'
-      redirect_to @seller
+      flash[:notice] = 'Profile successfully updated.'
+      redirect_to seller_path(current_user.seller)
     else
-      flash[:notice] = 'Try again!!!'
-      redirect_to new_seller_path
+      flash[:error] = 'Something went wrong!! Please Try again!!!'
+      render 'edit'
     end
   end
 
   def destroy
-    @seller.destroy
+    if @seller.destroy
+      flash[:error] = "Your account has been removed"
+    else
+      flash[:error] = "Your account can not be removed"
+    end
   end
 
   private

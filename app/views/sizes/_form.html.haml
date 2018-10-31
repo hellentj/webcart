@@ -1,0 +1,11 @@
+= form_with(model: size, local: true) do |form|
+  = render 'shared/error', object: @size
+  %table.table.table-hover
+    %tr
+      %td
+        Size:
+      %td
+        = form.text_field :size
+    %tr
+      %td
+        = form.submit :save 

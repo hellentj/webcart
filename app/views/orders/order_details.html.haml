@@ -1,0 +1,31 @@
+.container
+  %table.table.table-hover
+    %tbody
+      %tr
+      - @carts.each do |cart|
+        .div.address_border.text-center
+          %li
+            - cart.quantity.colour.images.where(product_id: cart.product_id).limit(1).each do |form|
+              = image_tag (form.image.thumb.url), class: :picture
+          %li
+            = cart.product.product_name
+          %li
+            Amount Paid:
+            &nbsp
+            ₹
+            = cart.product.price.to_d * cart.total_quantity.to_d
+          %li
+            Quantity:
+            &nbsp
+            = cart.total_quantity
+          %li
+            Date of order:
+            &nbsp
+            = @order.created_at.to_date
+          %li
+            Order method:
+            &nbsp
+            = @order.payment.payment_method
+          %br/
+          .btn.btn-danger
+            = link_to "Cancel", cart, method: :delete, data: { confirm: 'Are you sure?' }

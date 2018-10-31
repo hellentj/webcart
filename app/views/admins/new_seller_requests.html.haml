@@ -1,0 +1,26 @@
+.container
+  %table.table.table-hover
+    - if @sellers.blank?
+      .text-primary.seller_req
+        %h4
+          No new seller requests found!
+    - else
+      %thead
+        %tr
+          %th
+            Name
+          %th
+            Email
+          %th
+            Website
+          %th
+            Action
+      %tbody
+        - @sellers.each do |seller|
+          %tr
+            %td= seller.sname
+            %td= seller.user.email
+            %td= seller.website
+            %td
+              = link_to image_tag("approve.png", size:"40x40"),admin_path(seller: seller), method: :put
+  = will_paginate @sellers, class: :flickr_pagination

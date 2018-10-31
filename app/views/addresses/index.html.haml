@@ -1,0 +1,30 @@
+.container
+
+  %table.table.table-hover
+    %tbody
+      - if @addresses.blank?
+        %h5
+          No address found! Add new address
+      - else
+        - @addresses.each do |address| 
+          .div.address_border.text-center
+            %li
+              =  address.address
+            %li
+              = address.city
+              , 
+              = address.district
+            %li
+              = address.state
+              , 
+              = address.country
+            %li
+              = address.pincode
+            %br/
+            = link_to 'Edit', edit_address_path(address)
+            |
+            = link_to 'Destroy', address, method: :delete,data: { confirm: 'Are you sure?' }
+      %br/
+      %br/
+      .btn.btn-ash.pull-right
+        = link_to 'Add New Address', new_address_path

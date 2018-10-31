@@ -1,0 +1,28 @@
+.container
+  %table.table.table-hover
+    %tbody
+      - if @addresses.blank?
+        %h5
+          No address found! Add new address
+      - else
+        %tr
+          %h5 Select Address
+          - @addresses.each do |address|
+            .div.address_border.text-center
+              %li
+                =  address.address
+              %li
+                = address.city
+                ,
+                = address.district
+              %li
+                = address.state
+                ,
+                = address.country
+              %li
+                = address.pincode
+              %br/
+              = link_to 'Select', new_order_path(address: address.id)
+      %br/
+      .btn.btn-ash.pull-right
+        = link_to "New Address", new_address_path(path: "order")

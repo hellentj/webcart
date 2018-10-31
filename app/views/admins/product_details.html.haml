@@ -1,0 +1,56 @@
+.container
+  %table.table.table-hover
+    %tr
+      %td
+      %td
+        - @images.limit(1).each do |form|
+          = image_tag (form.image.thumb.url), class: :picture
+        
+      %td
+    %tr
+      %td
+        %strong ProductName:
+      %td
+      %td
+        = @product.product_name
+
+    %tr
+      %td
+        %strong Category:
+      %td
+      %td
+        = @product.category.category_name
+    %tr
+      %td
+        %strong Price:
+      %td
+      %td
+        = @product.price
+    %tr
+      %td
+        %strong Colours:
+      %td
+      %td
+        - @product.colours.distinct.each do |colour|
+          = colour.colour
+          %br/
+    %tr
+      %td
+        %strong Sizes:
+      %td
+      %td
+        - @product.sizes.distinct.each do |size|
+          = size.size
+          %br/
+    %tr
+      %td
+        %strong Available:
+      %td
+      %td
+        = @product.quantity
+    %tr
+      %td
+        %strong Sold:
+      %td
+      %td
+        = @product.sold   

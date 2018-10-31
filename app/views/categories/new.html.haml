@@ -1,9 +1,13 @@
-= form_with model: @category, local: true do |form|
-  = render 'shared/error', object: @category
-  For new Category:
-  %p 
-    Category Name:
-    %br/
-    = form.text_field :category_name
-  %p
-    = form.submit :Save
+.container
+  %table.table.table-hover
+    = form_with model: @category, local: true do |form|
+      = render 'shared/error', object: @category
+      For new Category:
+      %tr
+        %td 
+          Category Name:
+        %td
+          = form.text_field :category_name
+      %tr
+        %td
+          = form.submit :Save

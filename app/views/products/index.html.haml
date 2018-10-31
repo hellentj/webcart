@@ -1,21 +1,32 @@
-%table
-  %thead
-    %tr
-      %th Product Name
-      %th Details
-      %th Price
-      %th Quantity
-      %th Category
-      %th{:colspan => "3"}
-  %tbody
-    - @products.each do |product|
+.container
+  %table.table.table-hover
+    %thead
       %tr
-        %td= product.product_name
-        %td= product.about
-        %td= product.price
-        %td= product.quantity
-        %td= product.category_id
-        %td= link_to 'Add images', new_image_path
-        %td= link_to 'Destroy', seller_product_path(current_user.seller,product), method: :delete,data: { confirm: 'Are you sure?' }
-= link_to 'Add new product', new_seller_product_path
-= link_to 'Back', sellers_path
+        %th Product Name
+        %th Details
+        %th Price
+        %th Category
+        %th Sold
+        %th Actions
+        %th{:colspan => "3"}
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td= product.product_name
+          %td= product.about
+          %td= product.price
+          %td= product.category.category_name
+          %td.font_color
+            = product.sold
+            \/
+            = product.quantity
+          %td= link_to image_tag("info.png", size:"25x25"), seller_product_path(current_user.seller, product)
+          %td= link_to image_tag("addimg.jpeg", size:"25x25"), new_image_path(product: product)
+          %td= link_to image_tag("delete.png", size:"25x25"), seller_product_path(current_user.seller,product), method: :delete,data: { confirm: 'Are you sure?' }
+          %td
+            - if product.images.blank?
+              Images not added
+  .btn.btn-ash#topbutton
+    = link_to 'Add new product', new_seller_product_path
+  = link_to 'Back', sellers_path
+  = will_paginate @products, class: :flickr_pagination

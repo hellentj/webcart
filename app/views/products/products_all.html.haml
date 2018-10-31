@@ -1,0 +1,17 @@
+.container
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Category
+        %th Product Name
+        %th Details
+        %th Price
+        %th{:colspan => "3"}
+    %tbody
+      - @products.each do |product|
+        %tr
+          %td= product.category.category_name
+          %td= product.product_name
+          %td= product.about
+          %td= product.price
+          

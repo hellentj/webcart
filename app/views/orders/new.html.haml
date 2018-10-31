@@ -1,0 +1,21 @@
+.container
+  = form_with(model: @order, local: true) do |form|
+    = render 'shared/error', object: @order
+    %table.table.table-hover
+      %tr
+        %th
+          Address:
+        %td
+          = @address.address
+          = @address.city
+          = @address.district
+          = @address.state
+          = @address.country
+          = @address.pincode
+          = form.hidden_field :address_id, value: @address.id
+      %tr
+        %th
+          Select Payment method:
+        %td
+          = form.select(:payment_id, payment_list)
+    = form.submit "Proceed to Order"

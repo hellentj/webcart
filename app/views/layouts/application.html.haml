@@ -1,20 +1,127 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title WebCart
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title Webcart
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    - if user_signed_in?
-      Signed in as #{current_user.email}.
-      = link_to "sign out",destroy_user_session_path, method: :delete
-    - else
-      = link_to "Sign Up", new_home_path 
-      |
-      = link_to "Sign in", new_user_session_path
-    %p.notice= notice
-    %p.alert= alert
-    = yield
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'application'
+  
+  %body.body
+    %header.header
+      #top
+        .container-header
+          .grid_5#social_icons
+            - if user_signed_in?              
+              - if current_user.seller?
+                = link_to sellers_path do 
+                  = image_tag "webcrt.png", style:'height:3vw;width:10vw'
+              - elsif current_user.admin?
+                = link_to admins_path do 
+                  = image_tag "webcrt.png", style:'height:3vw;width:10vw'
+              - else
+                = link_to root_path do 
+                  = image_tag "webcrt.png", style:'height:3vw;width:10vw'
+            - else
+              = link_to root_path do 
+                = image_tag "webcrt.png", style:'height:3vw;width:10vw'
+          .nav.topmenu.omega
+            - if user_signed_in?
+              .text-white
+                Signed in as #{current_user.email} &nbsp &nbsp
+                = link_to "sign out",destroy_user_session_path, method: :delete
+            - else
+              = link_to "Sign Up", new_user_registration_path(role: :customer)
+              &nbsp | &nbsp
+              = link_to "Sign in", new_user_session_path
+            - unless user_signed_in?
+              &nbsp | &nbsp
+              = link_to "Want to be a seller ?", new_user_registration_path(role: :seller)
+      %nav.navbar.navbar-expand
+        .container-fluid
+          #navigation.collapse.navbar-collapse.menu-large
+            - unless user_signed_in? && current_user.admin?
+              - unless user_signed_in? && current_user.seller?
+                %ul.navbar-nav.mr-auto
+                  %li.nav-item.dropdown
+                    %a.dropdown-toggle.nav-link{"data-delay" => "200", "data-hover" => "dropdown", "data-toggle" => "dropdown"}
+                      Category
+                      %b.caret
+                    %ul.dropdown-menu.megamenu
+                      %li
+                        .row
+                          .col-md-3
+                            %ul.list-unstyled.mb-3
+                              - Category.all.each do |key|
+                                %li.nav-item
+                                  = link_to key.category_name,home_index_path(category: key.category_name)
+            - if user_signed_in?
+              - unless current_user.admin?
+                %ul.navbar-nav
+                  %li.nav-item.dropdown
+                    %a.dropdown-toggle.nav-link
+                      My Profile
+                    %ul.dropdown-menu.megamenu
+                      %li
+                        .row
+                          .col-md-12
+                            %ul.list-unstyled
+                              %li.nav-item
+                                - if current_user.customer
+                                  = link_to 'View My Profile',customer_path(current_user.customer)
+                                - elsif current_user.seller
+                                  = link_to 'View My Profile', seller_path(current_user.seller)
+                              %li.nav-item
+                                - if current_user.customer 
+                                  = link_to 'Orders', order_path(current_user)
+                              %li.nav-item
+                                - if current_user.customer
+                                  = link_to 'Address',addresses_path
+                                - elsif current_user.seller
+                                  - if current_user.seller.approved?
+                                    = link_to ' My Products', seller_products_path(current_user.seller)
+                              %li.nav-item
+                                - if current_user.customer
+                                  = link_to 'Change Password',edit_user_registration_path(current_user)
+                                - elsif current_user.seller
+                                  = link_to 'Change Password',edit_user_registration_path(current_user)           
+                              %li.nav-item
+                                - if current_user.customer
+                                  = link_to 'Delete My account', user_registration_path(user: current_user), method: :delete, data: { confirm: 'Are you sure?' }
+                                - elsif current_user.seller
+                                  = link_to 'Delete My account', user_registration_path(user: current_user), method: :delete, data: { confirm: 'Are you sure?' }
+            .navbar-buttons.d-flex.justify-content-end
+              #basket-overview.navbar-collapse.collapse.d-lg-block
+                - if user_signed_in?
+                  - if current_user.customer
+                    = link_to "Cart", customer_carts_path(current_user)
+                    .span.badge.badge-primary
+                      = @mycart
+                  - elsif current_user.seller
+                    - if current_user.seller.approved?
+                      &nbsp &nbsp
+                      = link_to 'Add Products', new_seller_product_path(current_user.seller)
+                    - else
+                      .font_color
+                        Your seller request has been sent
+                  - elsif current_user.admin?
+                    = link_to 'My account', admins_path(current_user)
+    .breadcrumbs
+      = render_breadcrumbs 
+    #message
+      - flash.each do |key, value|
+        %div{:class => flash_class(key)}
+          = value
+    .bottom
+      = yield
+  
+    #copyright.fixed-bottom
+      .container-fluid
+        .row
+          .col-lg-6.mb-2.mb-lg-0
+            %p.text-center.text-lg-left ©2018 Webcart.
+          .col-lg-6
+            %p.text-center.text-lg-right
+              PCITS LLP

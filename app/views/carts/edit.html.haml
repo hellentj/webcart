@@ -1,0 +1,11 @@
+.container
+  %h4 Add Quantity
+  = form_with model: @cart, local: true do |form|
+    %table.table.table-hover
+      %tr
+        %td
+          Quantity:
+        %td
+          = form.number_field :quantity
+          .action
+            = form.submit :Save

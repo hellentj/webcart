@@ -1,0 +1,20 @@
+.container.col-lg-9.offset-md-2
+  %table.table.table-hover
+    %tbody
+      %tr
+        %h5.text-center.font_color Orders
+        - @orders.each do |order|
+          .div.address_border.text-center
+            %li
+              OD3079731380832380
+              = order.id
+            %li
+              Delivered to:
+            %li
+              = order.address.address
+              = order.address.city
+            %li
+              %br/
+              .btn.btn-ash
+                = link_to 'View', order_details_order_path(order: order)
+  = will_paginate @orders, class: :flickr_pagination
