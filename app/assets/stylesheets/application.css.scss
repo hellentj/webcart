@@ -56,6 +56,7 @@ div.display:hover {
   padding-bottom: 10px;
   padding-left: 10px;
 }
+
 .pictur:hover {
  transform: scale(1.01);
  border:1px solid #e82764;
@@ -74,7 +75,7 @@ html, body { height: 100%; margin: 0; }
   margin: 0 auto [footer-height];
 }
 
-.bottom{
+.bottom {
   width: 100%;
   padding-top:50px;  
   padding-bottom: 100px;
@@ -110,7 +111,7 @@ div.admin_border {
   background-color: white;
 }
 
-.container-header{
+.container-header {
     line-height: 1.22;
 }
 
@@ -125,7 +126,7 @@ div.admin_border {
      text-align: right;
 }
 
-.topmenu.omega{
+.topmenu.omega {
     padding-top:10px; 
     float:right;
 }
@@ -172,6 +173,7 @@ div.order_border {
   top: 100px;
   right: 10px;
 }
+
 .fixed-bottom_button {
   position: fixed;
   bottom: 100px;
