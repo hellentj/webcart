@@ -11,7 +11,8 @@ gem 'mysql2', '~> 0.5.2'
 gem 'puma', '~> 3.11'
 gem 'pundit', '~> 1.1'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+
+gem 'sassc', '~> 1.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
 gem 'jquery-rails', '~> 4.3.3'

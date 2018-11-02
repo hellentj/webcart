@@ -24,13 +24,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def destroy
     @user = User.find(params[:user])
+    @path = @user.role
     if @user.destroy
       flash[:error] = "Account is deleted"
     else
       flash[:error] = "Couldn't delete account, Please Try Again"
     end
     if current_user.admin?
-      redirect_to admin_path(current_user)
+      if @path == "customer"
+        redirect_to admin_path(current_user)
+      else
+        redirect_to sellers_list_admin_path(current_user)
+      end
     else
       redirect_to root_path
     end
