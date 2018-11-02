@@ -11,9 +11,13 @@ class SellersController < ApplicationController
       @products = seller.products.paginate(page: params[:page], per_page: 20)
       @total = @products.count
       @pending = 0
+      @blocked = 0
       seller.products.each do |product|
         if product.quantity == 0
           @pending +=1
+        end
+        if product.block?
+          @blocked +=1
         end
       end
     end

@@ -38,8 +38,8 @@
       %th
       %th= link_to 'View Quantity',quantities_path(product: @product)
       %th= link_to 'Add colour and size',new_quantity_path(product: @product) 
-      %th= link_to image_tag("addimg.jpeg", size:"40x40"), new_image_path(product: @product)
-      %th= link_to image_tag("img.png", size:"40x40"), images_path(product: @product)
+      %th= link_to image_tag("addimg.jpeg", size:"40x40", title: "Add Images"), new_image_path(product: @product)
+      %th= link_to image_tag("img.png", size:"40x40", title: "View Images"), images_path(product: @product)
       - @images.each do |form|
         %tr
           %td

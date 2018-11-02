@@ -22,7 +22,7 @@
           %td= seller.user.email
           %td
             - unless seller.approved?
-              = link_to image_tag("approve.png", size:"30x30"), admin_path(seller: seller), method: :put
+              = link_to image_tag("approve.png", size:"30x30", title: "Click to approve the Seller"), admin_path(seller: seller), method: :put
             - else
               approved
               
@@ -30,9 +30,9 @@
           %td= link_to 'view', products_all_admin_path(seller: seller)
           %td
             - if seller.user.unblock?
-              = link_to image_tag("unblock.png", size:"25x25"), block_user_admin_path(user: seller.user)
+              = link_to image_tag("unblock.png", size:"25x25", title: "Click to Block the User"), block_user_admin_path(user: seller.user)
             - else
-              = link_to image_tag("block.png", size:"25x25"),unblock_user_admin_path(user: seller.user)
-          %td= link_to image_tag("vprofile.jpeg", size:"25x25"), seller_path(seller)
-          %td= link_to image_tag("delete.png", size:"25x25"), user_registration_path(user: seller.user), method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to image_tag("block.png", size:"25x25", title: "Click to Unblock the User"),unblock_user_admin_path(user: seller.user)
+          %td= link_to image_tag("vprofile.jpeg", size:"25x25", title: "Click to View Profile"), seller_path(seller)
+          %td= link_to image_tag("delete.png", size:"25x25", title: "Click to Delete the User"), user_registration_path(user: seller.user), method: :delete, data: { confirm: 'Are you sure?' }
   = will_paginate @sellers, class: :flickr_pagination

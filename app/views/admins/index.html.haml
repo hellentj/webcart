@@ -1,26 +1,26 @@
 .container.col-lg-9.offset-md-2
   .div.admin_border.text-center
     %h5.font_color Users
-    = link_to image_tag("users.jpeg", size:"200x200"), admin_path(current_user)
+    = link_to image_tag("users.jpeg", size:"200x200", title: "Customers"), admin_path(current_user)
 
   .div.admin_border.text-center
     %h5.font_color Sellers
-    = link_to image_tag("users.jpeg", size:"200x200"), sellers_list_admin_path(current_user)
+    = link_to image_tag("users.jpeg", size:"200x200", title: "Sellers"), sellers_list_admin_path(current_user)
     
   .div.admin_border.text-center
     %h5.font_color New Seller Requests
-    = link_to image_tag("new_user.jpeg", size:"190x200"),new_seller_requests_admin_path(current_user)
+    = link_to image_tag("new_user.jpeg", size:"190x200", title: "New seller requests"),new_seller_requests_admin_path(current_user)
       
   .div.admin_border.text-center
     %h5.font_color Categories
-    = link_to image_tag("Categories.jpeg", size:"235x200"), categories_path
+    = link_to image_tag("Categories.jpeg", size:"235x200", title: "Categories of product"), categories_path
       
   .div.admin_border.text-center
     %h5.font_color Colours
-    = link_to image_tag("colour.png", size:"230x200"), colours_path
+    = link_to image_tag("colour.png", size:"230x200", title: "Colours of product"), colours_path
       
   .div.admin_border.text-center
     %h5.font_color Sizes
-    = link_to image_tag("add.png", size:"200x200"), sizes_path
+    = link_to image_tag("add.png", size:"200x200", title: "Sizes of product"), sizes_path
   %br/
   %br/

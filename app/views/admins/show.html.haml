@@ -21,12 +21,12 @@
           %td= customer.user.email
           %td= customer.orders.count
           - if customer.user.unblock?
-            %td= link_to image_tag("unblock.png", size:"25x25"),block_user_admin_path(user: customer.user)
+            %td= link_to image_tag("unblock.png", size:"25x25", title: "Click to Block the User"),block_user_admin_path(user: customer.user)
           - else
-            %td= link_to image_tag("block.png", size:"25x25"),unblock_user_admin_path(user: customer.user)
-          %td= link_to image_tag("vprofile.jpeg", size:"25x25"), customer_path(customer)
+            %td= link_to image_tag("block.png", size:"25x25", title: "Click to Unblock the User"),unblock_user_admin_path(user: customer.user)
+          %td= link_to image_tag("vprofile.jpeg", size:"25x25", title: "Click to View Profile"), customer_path(customer)
           %td
-            = link_to image_tag("delete.png", size:"25x25"), user_registration_path(user: customer.user), method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to image_tag("delete.png", size:"25x25", title: "Click to Delete the User"), user_registration_path(user: customer.user), method: :delete, data: { confirm: 'Are you sure?' }
   %br/
   %br/
 

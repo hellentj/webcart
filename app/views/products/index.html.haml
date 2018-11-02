@@ -8,6 +8,7 @@
         %th Category
         %th Sold
         %th Actions
+        %th
         %th{:colspan => "3"}
     %tbody
       - @products.each do |product|
@@ -20,12 +21,15 @@
             = product.sold
             \/
             = product.quantity
-          %td= link_to image_tag("info.png", size:"25x25"), seller_product_path(current_user.seller, product)
-          %td= link_to image_tag("addimg.jpeg", size:"25x25"), new_image_path(product: product)
-          %td= link_to image_tag("delete.png", size:"25x25"), seller_product_path(current_user.seller,product), method: :delete,data: { confirm: 'Are you sure?' }
+          %td= link_to image_tag("info.png", size:"25x25", title: "View Details"), seller_product_path(current_user.seller, product)
+          %td= link_to image_tag("addimg.jpeg", size:"25x25", title: "Add Images"), new_image_path(product: product)
+          %td= link_to image_tag("delete.png", size:"25x25", title: "Delete Product"), seller_product_path(current_user.seller,product), method: :delete,data: { confirm: 'Are you sure?' }
           %td
             - if product.images.blank?
               Images not added
+          %td
+            - if product.block?
+              = image_tag "blocked.jpg", size:"20x20", title: "Product is Blocked by Admin"
   .btn.btn-ash#topbutton
     = link_to 'Add new product', new_seller_product_path
   = link_to 'Back', sellers_path

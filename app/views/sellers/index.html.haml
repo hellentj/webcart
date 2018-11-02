@@ -14,12 +14,15 @@
                 %br/
                 = truncate(product.product_name, length: 20)
                 %br/
-                .font_color
-                  Available:
-                  = product.quantity
-                  &nbsp
-                  Sold:
-                  = product.sold
+                - if product.unblock?
+                  .font_color
+                    Available:
+                    = product.quantity
+                    &nbsp
+                    Sold:
+                    = product.sold
+                - else
+                  = image_tag "blocked.jpg", size:"20x20", title: "Product is Blocked by Admin"
   #topbutton.font_color
     = link_to 'Products', seller_products_path(current_user.seller)
     .span.badge.badge-primary
@@ -27,4 +30,7 @@
     Pending
     .span.badge.badge-primary
       = @pending
+    Blocked
+    .span.badge.badge-primary
+      = @blocked
   = will_paginate @products, class: :flickr_pagination
