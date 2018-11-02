@@ -1,4 +1,4 @@
-class AddStatusToSellers < ActiveRecord::Migration[5.2]
+class AddStatusToSeller < ActiveRecord::Migration[5.2]
   def change
     add_column :sellers, :status, :string
   end
