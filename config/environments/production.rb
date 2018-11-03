@@ -91,4 +91,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = { host: 'https://my-task-    tracker.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: '587',
+    user_name: ENV['EMAIL_ID'],
+    password:  ENV['PASSWORD'],
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
 end
