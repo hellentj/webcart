@@ -288,4 +288,5 @@ Devise.setup do |config|
   #   include Turbolinks::Controller
   # end
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], callback_url: "https://shocking-monster-68502.herokuapp.com/users/auth/facebook/callback"
+  config.omniauth :google_oauth2,  ENV['GOOGLE_CLIENT_ID'],  ENV['GOOGLE_CLIENT_SECRET'], { }
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   #devise_gem
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :trackable, :confirmable,:omniauthable, :omniauth_providers => [:facebook]
+         :trackable, :confirmable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
          
   #relationships
   has_one :customer, dependent: :destroy

@@ -22,6 +22,7 @@ gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'breadcrumbs_on_rails', '~> 3.0.1'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'omniauth-google-oauth2', '~> 0.4.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
